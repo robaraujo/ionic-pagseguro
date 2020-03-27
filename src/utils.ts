@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
-import { ToastController, AlertController, Loading, LoadingController } from 'ionic-angular';
+import { ToastController, AlertController, LoadingController } from '@ionic/angular';
 
 @Injectable()
 export class Utils {
 
   private TIMEOUT = 20000;
-  private loader: Loading;
+  private loader;
   
   constructor(public toastCtrl: ToastController, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
   }
@@ -16,7 +16,7 @@ export class Utils {
    * @param errorKey 
    * @param error 
    */
-  public showErrorAlert(msg: string, error: string) {
+  public async showErrorAlert(msg: string, error: string) {
     let alert = this.alertCtrl.create({
       message: msg + '<br/><br/>' + error,
       buttons: [{
@@ -24,16 +24,16 @@ export class Utils {
         role: 'cancel'
       }]
     });
-    alert.present();
+    (await alert).present();
   }
 
-  public presentToast(msg: string) {
+  public async presentToast(msg: string) {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 4000,
       position: 'bottom'
     });
-    toast.present();
+    (await toast).present();
   }
 
   /**
@@ -45,7 +45,7 @@ export class Utils {
     // only show loader if there is a messageKey
     if (msg) {
       this.loader = this.loadingCtrl.create({
-        content: msg,
+        message: msg,
         duration: this.TIMEOUT
       });
       this.loader.present();
@@ -59,7 +59,5 @@ export class Utils {
       throw error;
     });
   }
-
-
 
 }
