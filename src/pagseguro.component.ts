@@ -1,12 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { PagSeguroService } from './pagseguro.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-//import * as moment from 'moment';
-import moment from 'moment';
-import { Subscription } from 'rxjs/Subscription';
+import * as moment from 'moment';
+//import moment from 'moment';
+import { Subscription } from 'rxjs';
 //import { Utils } from './utils';
 import { IMyDpOptions } from 'mydatepicker';
-import { Platform } from 'ionic-angular';
+import { Platform } from '@ionic/angular';
 import { IMyDate } from 'mydatepicker';
 
 declare var PagSeguroDirectPayment: any; 
