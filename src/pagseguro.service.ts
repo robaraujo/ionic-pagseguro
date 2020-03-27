@@ -2,16 +2,14 @@ import { Injectable } from '@angular/core';
 import { PagSeguroDefaultOptions } from './pagseguro.defaults';
 import { RequestOptions, Http, Headers } from '@angular/http';
 import { PagSeguroOptions } from './pagseguro.options';
-//import { Observable } from "rxjs/Observable";
 
 import { PagSeguroData } from './pagseguro.data';
 import { FormGroup } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Platform } from '@ionic/angular';
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-import { Observable } from 'rxjs/Observable';
-import { Platform } from 'ionic-angular';
  
 declare var PagSeguroDirectPayment: any;
 
@@ -223,7 +221,7 @@ export class PagSeguroService {
    * @param isoDate 
    */
   private convertIsoDate(): string {
-    if (this.platform.is('core')) {
+    if (this.platform.is('desktop')) {
       return this.paymentForm.value.mydpBirthdate.formatted;
     } else {
       let isoDate = this.paymentForm.value.ionBirthDate;
@@ -416,7 +414,8 @@ export class PagSeguroService {
   public fetchZip(zip: string, addToCheckoutData: boolean): Promise<any> {
     //return this.httpClient.get<any>(`${this.ZIP_URL}/${zip}/json`).retry(2);
     //return this.http.get(`${this.ZIP_URL}/${zip}/json`).toPromise();
-    let addressPromise = this.http.get(`${this.ZIP_URL}?address=${zip}&language=pt-BR&region=br&key=${this.apiKey}`).map((res) => res.json()).toPromise();
+    let addressPromise = this.http.get(`${this.ZIP_URL}?address=${zip}&language=pt-BR&region=br&key=${this.apiKey}`)
+    .map((res) => res.json()).toPromise();
     addressPromise.then((info) => {
       if (addToCheckoutData && info.results && info.results[0]) {
         //this.pagSeguroService.addCheckoutData(this.pagSeguroService.matchAddress(info.results[0]));
@@ -430,7 +429,8 @@ export class PagSeguroService {
   public fetchLatLong(location): Promise<any> {
     //return this.httpClient.get<any>(`${this.ZIP_URL}/${zip}/json`).retry(2);
     //return this.http.get(`${this.ZIP_URL}/${zip}/json`).toPromise();
-    return this.http.get(`${this.ZIP_URL}?latlng=${location.lat},${location.lng}&language=pt-BR&key=${this.apiKey}`).map((res) => res.json()).toPromise();
+    return this.http.get(`${this.ZIP_URL}?latlng=${location.lat},${location.lng}&language=pt-BR&key=${this.apiKey}`)
+    .map((res) => res.json()).toPromise();
   }
 
   /**
