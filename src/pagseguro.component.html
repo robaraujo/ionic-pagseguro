@@ -57,9 +57,13 @@
                 <ion-note margin-left ion-text color="danger" *ngIf="!paymentForm.get('card').get('month').valid && paymentForm.get('card').get('month').touched">Mês obrigatório</ion-note>
               </ion-label>
               <!-- <ion-input type="text" formControlName="month" placeholder="Mês"></ion-input> -->
-              <!-- <ion-datetime displayFormat="MM/YYYY" [max]="dateMax" [min]="dateMin" doneText="OK" cancelText="Cancelar" formControlName="validity"></ion-datetime> -->
-              <ion-select okText="OK" cancelText="Cancelar" formControlName="month" placeholder="Mês" [selectOptions]="{title: 'Mês'}"> 
-                <ion-option *ngFor="let month of expirationMonths" [value]="month">{{ month }}</ion-option>
+              <!-- 
+                <ion-datetime displayFormat="MM/YYYY" [max]="dateMax" [min]="dateMin" doneText="OK" cancelText="Cancelar" 
+                formControlName="validity"></ion-datetime> 
+              -->
+              <ion-select okText="OK" cancelText="Cancelar" formControlName="month" placeholder="Mês">
+              <!-- [selectOptions]="{title: 'Mês'}">  -->
+                <ion-select-option *ngFor="let month of expirationMonths" [value]="month">{{ month }}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-col>
@@ -69,8 +73,9 @@
                 <ion-note margin-left ion-text color="danger" *ngIf="!paymentForm.get('card').get('year').valid && paymentForm.get('card').get('year').touched">Ano obrigatório</ion-note>
               </ion-label>
               <!-- <ion-input type="text" formControlName="year" placeholder="Ano"></ion-input> -->
-              <ion-select okText="OK" cancelText="Cancelar" formControlName="year" placeholder="Ano" [selectOptions]="{title: 'Ano'}">
-                <ion-option *ngFor="let year of expirationYears" [value]="year">{{ year }}</ion-option>
+              <ion-select okText="OK" cancelText="Cancelar" formControlName="year" placeholder="Ano">
+              <!-- [selectOptions]="{title: 'Ano'}" -->
+                <ion-select-option *ngFor="let year of expirationYears" [value]="year">{{ year }}</ion-select-option>
               </ion-select>
             </ion-item>
           </ion-col>
@@ -91,7 +96,7 @@
             <ion-note margin-left ion-text color="danger" *ngIf="!paymentForm.get('card').get('installments').valid && paymentForm.get('card').get('installments').touched">Campo obrigatório</ion-note>
           </ion-label>
           <ion-select okText="OK" cancelText="Cancelar" formControlName="installments">
-            <ion-option *ngFor="let item of installments" [value]="item.quantity">{{ item.quantity }} x {{ item.installmentAmount | currency:'BRL':'symbol-narrow' }}</ion-option>
+            <ion-select-option *ngFor="let item of installments" [value]="item.quantity">{{ item.quantity }} x {{ item.installmentAmount | currency:'BRL':'symbol-narrow' }}</ion-select-option>
           </ion-select>
         </ion-item>
 
